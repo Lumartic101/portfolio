@@ -1,0 +1,156 @@
+.container-fluid {
+  max-width: 80%;
+}
+
+.form-group {
+  margin-bottom: 2%;
+}
+
+h1 {
+  color: red;
+  text-align: center;
+}
+
+/* Styling for date section*/
+.openClose {
+  margin-left: auto;
+  width: 100%;
+  margin-bottom: 4vh;
+
+  label {
+    margin-left: -0.9vw;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+
+  input {
+    margin-bottom: 1vh;
+    width: 100%;
+  }
+
+  > div {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+//Styling for modals
+.modal-content {
+  input {
+    margin: 1vh auto;
+    max-width: 75%;
+  }
+
+  div {
+    padding: 3%;
+  }
+}
+
+//Styling for title and back-button
+.title-actions {
+  padding: 1% 2% 1% 2%;
+  margin-left: auto;
+  margin-bottom: 2%;
+  border: 1px solid black;
+  width: 100%;
+
+  input {
+    width: 80%;
+  }
+}
+
+#back-arrow, #title, #settings {
+  display: inline-block;
+}
+
+#back-arrow {
+  margin-right: 2%;
+  margin-top: -1.5%;
+}
+
+.actions {
+  text-align: right;
+}
+
+//Styling for pillars
+.pillar {
+  margin-left: auto;
+  padding: 1% 2% 1% 2%;
+  margin-bottom: 1%;
+  border: 10px solid #25167A;
+  max-width: 100%;
+}
+
+.pillarCruds {
+  margin-left: 3vw;
+  margin-top: 0.3vh;
+}
+
+//Styling for clusters
+.cluster {
+  margin-left: auto;
+  padding: 1% 2% 1% 2%;
+  margin-bottom: 1%;
+  border: 10px solid #25167A;
+  max-width: 90%;
+}
+
+.add {
+  text-align: right;
+}
+
+.clusterCruds {
+  margin-left: -1vh;
+}
+
+//Styling for goals
+.goal {
+  margin-left: auto;
+  padding: 1% 2% 1% 2%;
+  margin-right: 0.05vw;
+  margin-bottom: 1%;
+  border: 10px solid #25167A;
+  max-width: 80%;
+}
+
+//Styling for questions
+.question {
+  margin-left: auto;
+  padding: 1% 2% 1% 2%;
+  margin-bottom: 1%;
+  border: 10px solid #25167A;
+  max-width: 60%;
+}
+
+.questionCruds {
+  margin-left: -1.5vw;
+
+  button {
+    display: inline-block;
+  }
+}
+
+//Styling for buttons
+
+.btn-primary {
+  background: #007d68;
+  border: #007d68;
+}
+
+button {
+  margin-left: 1vh;
+}
+
+//Styling for save button
+.save-btn {
+  max-width: 50px;
+  position: fixed;
+  right: 25px;
+  top: 50px;
+
+  img {
+    cursor: pointer;
+  }
+}

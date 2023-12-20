@@ -1,0 +1,160 @@
+{
+  "User": [
+    {
+      "id": 1,
+      "email": "user@gmail.com",
+      "ticket": [
+        {
+          "id": 1,
+          "holderName": "John Doe",
+          "type": "General Admission",
+          "orderId": "ABC723",
+          "price": "49.95",
+          "Event": {
+            "id": 1,
+            "eventName": "Lowlands",
+            "location": "Location 1",
+            "country": "Netherlands",
+            "startDate": "10:00 May 31, 2023",
+            "endDate": "18:00 May 31, 2023"
+          }
+        },
+        {
+          "id": 2,
+          "holderName": "Lissane Doe",
+          "type": "General Admission 2",
+          "orderId": "ABC1232",
+          "price": "59.95",
+          "Event": {
+            "id": 2,
+            "eventName": "Lowlands2",
+            "location": "Location 2",
+            "country": "Netherlands2",
+            "startDate": "07:00 May 31, 2023",
+            "endDate": "19:00 May 31, 2023"
+          }
+        },
+        {
+          "id": 2,
+          "holderName": "",
+          "type": "General Admission 3",
+          "orderId": "ABRAWDH32",
+          "price": "59.95",
+          "Event": {
+            "id": 2,
+            "eventName": "Lowlands2",
+            "location": "Location 2",
+            "country": "Netherlands2",
+            "startDate": "01:00 May 20, 2023",
+            "endDate": "06:00 May 23, 2023"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "email": "user2@gmail.com",
+      "ticket": [
+        {
+          "id": 2,
+          "holderName": "Jane Smith",
+          "type": "VIP",
+          "orderId": "DEF451",
+          "price": "100",
+          "Event": {
+            "id": 2,
+            "eventName": "Event 2",
+            "location": "Location 2",
+            "country": "Netherlands",
+            "startDate": "10:00 May 31, 2023",
+            "endDate": "18:00 May 31, 2023"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "email": "jacco.jongenotter@gmail.com",
+      "ticket": [
+        {
+          "id": 3,
+          "holderName": "Jacco Jongenotter",
+          "type": "VIP",
+          "orderId": "DEF456",
+          "price": "100",
+          "Event": {
+            "id": 3,
+            "eventName": "Event 3",
+            "location": "Location 3",
+            "country": "Netherlands",
+            "startDate": "10:00 May 31, 2023",
+            "endDate": "22:00 May 31, 2023"
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "email": "abe.kasper@gmail.com",
+      "ticket": [
+        {
+          "id": 4,
+          "holderName": "Abe Kasper",
+          "type": "VIP",
+          "orderId": "DEF426",
+          "price": "100",
+          "Event": {
+            "id": 4,
+            "eventName": "Event 4",
+            "location": "Location 4",
+            "country": "Netherlands",
+            "startDate": "10:00 May 31, 2023",
+            "endDate": "22:00 May 31, 2023"
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "email": "hendrikvdkaaden@gmail.com",
+      "ticket": [
+        {
+          "id": 4,
+          "holderName": "Hendrik",
+          "type": "VIP",
+          "orderId": "DEF426",
+          "price": "100",
+          "Event": {
+            "id": 5,
+            "eventName": "Event 4",
+            "location": "Location 4",
+            "country": "Netherlands",
+            "startDate": "10:00 May 31, 2023",
+            "endDate": "22:00 May 31, 2023"
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "email": "luka.msdd@gmail.com",
+      "ticket": [
+        {
+          "id": 4,
+          "holderName": "Luka",
+          "type": "VIP",
+          "orderId": "DEF426",
+          "price": "100",
+          "Event": {
+            "id": 5,
+            "eventName": "Event 4",
+            "location": "Location 4",
+            "country": "Netherlands",
+            "startDate": "10:00 May 31, 2023",
+            "endDate": "22:00 May 31, 2023"
+          }
+        }
+      ]
+    }
+  ]
+}

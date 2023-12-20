@@ -1,0 +1,8 @@
+<div class="cluster-background">
+  <div class="cluster-title">
+    <h2>{{clusterIndex}}. {{cluster.name}}</h2>
+  </div>
+  <div *ngFor="let goal; index as goalIndex of cluster.goals">
+    <app-goal [goal]="goal" [clusterIndex]="clusterIndex" [goalIndex]="goalIndex + 1"></app-goal>
+  </div>
+</div>

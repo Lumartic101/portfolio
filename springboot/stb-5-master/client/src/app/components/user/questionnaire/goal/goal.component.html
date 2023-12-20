@@ -1,0 +1,9 @@
+<div class="goal-background">
+  <div class="goal-title">
+    <h2>{{clusterIndex}}.{{goalIndex}} {{goal.name}}</h2>
+  </div>
+  <div *ngFor="let question; index as questionIndex of goal.subquestions">
+    <app-questionnaire-question-component [question]="question" [clusterIndex]="clusterIndex" [goalIndex]="goalIndex" [questionIndex]="questionIndex"></app-questionnaire-question-component>
+    <br>
+  </div>
+</div>

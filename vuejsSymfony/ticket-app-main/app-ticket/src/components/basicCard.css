@@ -1,0 +1,105 @@
+.storybook-card--primary{
+    width: 348px;
+    height: 73px;
+    margin: auto;
+    border-radius: 6px;
+    fill: #ffffff;
+    box-shadow: 0px 20px 20px rgba(0,0,0,0.02), 0px 10px 10px rgba(0,0,0,0.05), 0px 5px 5px rgba(0,0,0,0.1);
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: white;
+}
+.icon-primary-card{
+    width: 29px;
+    fill: #007fff;
+    margin-left: 15px;
+    text-align: center;
+    margin-right: 10px;
+    margin-bottom: auto;
+    float: left;
+    height: 74px;
+    margin-top: 17px;
+}
+.show-price{
+    float: left;
+    width: 100px;
+}
+.tekst-in-icon{
+    text-align: center;
+    margin-top: 23px;
+}
+
+.tekst-next-to-icon{
+    margin-top: 10px;
+}
+.button-class{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.storybook-card--secondary{
+    width: 164px;
+    height: 192px;
+    border-radius: 6px;
+    fill: #ffffff;
+    box-shadow: 0px 20px 20px rgba(0,0,0,0.02), 0px 10px 10px rgba(0,0,0,0.05), 0px 5px 5px rgba(0,0,0,0.1);
+    margin: auto;
+    margin-bottom: 30px !important;
+    background-color: white;
+    margin-top: 50px;
+}
+.icon-secondary-card{
+    text-align: center;
+    padding-top: 1px;
+    background-color: #dfedf6;
+    padding-bottom: 5px;
+    padding-top: 12px;
+}
+
+.tekst-in-icon-second{
+    text-align: left;
+    margin-right: 18px;
+    float: left;
+    margin-top: 13px;
+    width: 175px;
+}
+.tekst-in-icon-second p{
+    text-align: left;
+    margin: unset !important;
+}
+.button-class--big{
+    display: none;
+}
+
+.icon-secondary-card{
+    border-radius: 3px;
+}
+.show-price{
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-top: 22px;
+    font-size: 20px;
+}
+.show-price-second{
+    text-align: center;
+    padding-top: 1px;
+    background-color: #dfedf6;
+    padding-bottom: 7px;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 17px;
+}
+.iconTekst{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+}
+.iconTekst p{
+    color: #007fff;
+    font-weight: bold;
+    font-size: 28px;
+}
+b.tekst-next-to-icon{
+    font-weight: bold !important;
+}

@@ -1,0 +1,27 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+# config/routes.yaml
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::requestLoginLink
+
+login_check:
+    path: /login_check
+
+graphql_endpoint:
+    path: /graphql
+    controller: App\Controller\GraphQLController::index
+    methods: [POST]
+
+# /login sends the login link as well
+# send_email:
+#     path: /api/send-email/{emailTo}
+#     controller: App\Controller\EmailController::sendEmail
+
+send_invitation_email:
+    path: /api/send-invitation-email/{emailTo}
+    controller: App\Controller\EmailController::sendInvitationEmail

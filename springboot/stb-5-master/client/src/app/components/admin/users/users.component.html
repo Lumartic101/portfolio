@@ -1,0 +1,153 @@
+<section id="user-management-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button type="button" class="btn btn-primary bg-primary me-auto float-end" data-bs-toggle="modal"
+                data-bs-target="#test">
+          CREATE NEW USER
+        </button>
+        <h1 class="text-center mb-3">Overview of users</h1>
+        <div class="table-responsive overflow-scroll">
+          <table class="table no-wrap user-table mb-0">
+            <thead class="bg-primary text-white">
+            <tr>
+              <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+              <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+              <th scope="col" class="border-0 text-uppercase font-medium">E-mail</th>
+              <th scope="col" class="border-0 text-uppercase font-medium">Education</th>
+              <th scope="col" class="border-0 text-uppercase font-medium text-center">Manage</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users; let i = index">
+              <td class="pl-4">{{i + 1}}</td>
+              <td>
+                <h5 class="mb-0">{{user.firstName}} {{user.lastName}}</h5>
+                <svg *ngIf="user.role == 0" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#25167A"
+                     class="bi bi-person-check" viewBox="0 0 16 16">
+                  <path
+                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                  <path fill-rule="evenodd"
+                        d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+              </td>
+              <td>
+                <span class="text-muted">{{user.email}}</span><br>
+              </td>
+              <td>
+                <span class="text-muted">{{user.education.name}}</span><br>
+              </td>
+              <td *ngIf="user.role == 1; else ADMIN">
+                <div class="row">
+                  <div class="col">
+                    <button (click)="changeUserRole(user.id)" type="button"
+                            class="btn bg-primary text-white btn-sm top-button">
+                      MAKE ADMIN
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button (click)="deleteUser(user.id)" type="button" class="btn btn-danger text-white btn-sm">
+                      DELETE USER
+                    </button>
+                  </div>
+                </div>
+              </td>
+              <ng-template #ADMIN>
+                <td>
+                  <div class="row">
+                    <div class="col">
+                      <button (click)="changeUserRole(user.id)" type="button"
+                              class="btn btn-danger text-white btn-sm top-button">
+                        REVOKE ADMIN
+                      </button>
+                    </div>
+                    <div class="col">
+                      <button (click)="deleteUser(user.id)" type="button" class="btn btn-danger text-white btn-sm">
+                        DELETE USER
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </ng-template>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade" id="test" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add user</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #userForm="ngForm">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-5">
+                <label for="email">E-mail</label>
+                <input required="required" class="form-control" id="email" name="email" type="email"
+                       [(ngModel)]="email"><br>
+              </div>
+              <div class="col-5">
+                <label for="password">Password</label>
+                <input required="required" class="form-control" id="password" name="password" type="password"
+                       [(ngModel)]="password">
+              </div>
+            </div>
+          </div>
+          <br>
+
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-5">
+                <label for="firstName">First name</label>
+                <input required="required" class="form-control" id="firstName" name="firstName" type="text"
+                       [(ngModel)]="firstName">
+              </div>
+              <div class="col-5">
+                <label for="lastName">Last name</label>
+                <input required="required" class="form-control" id="lastName" name="lastName" type="text"
+                       [(ngModel)]="lastName"><br>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-5">
+                <label for="education">Education:</label>
+                <select required="required" class="form-control" id="education" name="education" [(ngModel)]="education">
+                  <option *ngFor="let education of educations">{{education.id + " " + education.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="form-group">
+            <input type="checkbox" id="admin" name="admin" value="Administrator" [(ngModel)]="admin">
+            <label for="admin">This is an administrator account</label><br>
+          </div>
+          <br>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary bg-primary" (click)="createUser()" [disabled]="!userForm.valid">
+          CREATE USER
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

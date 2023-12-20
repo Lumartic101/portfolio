@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.atos.msafe.core.ui.HomeFragment"
+        android:label="fragment_core_home"
+        tools:layout="@layout/fragment_core_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_savedFragment"
+            app:destination="@id/savedFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedFragment"
+        android:name="com.atos.msafe.core.ui.SavedFragment"
+        android:label="fragment_core_saved"
+        tools:layout="@layout/fragment_core_saved" >
+        <action
+            android:id="@+id/action_savedFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.atos.msafe.core.ui.AccountFragment"
+        android:label="fragment_core_account"
+        tools:layout="@layout/fragment_core_account" />
+</navigation>

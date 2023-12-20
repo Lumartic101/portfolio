@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+
+  // Colour palette
+  --hvaPurple: #25167A;
+  --hvaSecondary: #007d68;
+  --black: #00000;
+  --white: #FFFFF;
+
+  // Typography
+  --hvaRegular: Arial, sans-serif;
+  --hvaBold: Arial Bold, sans-serif, font-weight 700;
+  --hvaExtraBold: Arial Bold, sans-serif, font-weight 800;
+
+}
+
+// overwrite the bootstrap standard coloring to the HvA styling
+.bg-primary {
+  background-color: var(--hvaPurple) !important;
+}
+
+.text-primary {
+  color: var(--hvaPurple) !important;
+}
+

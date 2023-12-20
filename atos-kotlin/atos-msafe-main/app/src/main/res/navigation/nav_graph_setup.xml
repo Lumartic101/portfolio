@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/bootFragment">
+
+    <fragment
+        android:id="@+id/SetupFragment"
+        android:name="com.atos.msafe.setup.ui.SetupFragment"
+        android:label="@string/txt_setup_fragment_label"
+        tools:layout="@layout/fragment_setup_welcome">
+        <action
+            android:id="@+id/action_SetupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_SetupFragment_to_SingupFragment"
+            app:destination="@id/SingupFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SingupFragment"
+        android:name="com.atos.msafe.setup.ui.SignupFragment"
+        android:label="@string/txt_signup_fragment_label"
+        tools:layout="@layout/fragment_setup_signup">
+        <action
+            android:id="@+id/action_SingupFragment_to_SetupFragment"
+            app:destination="@id/SetupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.atos.msafe.setup.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_setup_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_SetupFragment"
+            app:destination="@id/SetupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bootFragment"
+        android:name="com.atos.msafe.setup.ui.BootFragment"
+        android:label="fragment_boot"
+        tools:layout="@layout/fragment_boot" >
+        <action
+            android:id="@+id/action_bootFragment_to_SetupFragment"
+            app:destination="@id/SetupFragment" />
+    </fragment>
+
+</navigation>

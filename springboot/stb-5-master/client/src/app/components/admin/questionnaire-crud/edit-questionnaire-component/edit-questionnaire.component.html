@@ -1,0 +1,396 @@
+<div class="container-fluid">
+
+  <div >
+    <div>
+      <!-- Title and back button  -->
+      <div class="title-actions row">
+        <div class="col-8">
+          <img src="../../../../../assets/images/back.png" alt="back-arrow" id="back-arrow" (click)="onBack()">
+          <input id="title" type="text" [(ngModel)]="this.questionnaire.name">
+        </div>
+      </div>
+
+      <!-- Start and end date -->
+      <div class="openClose row">
+        <label for="status">Status:</label>
+        <div>
+          <input type="text" id="status" disabled *ngIf="this.questionnaire.status" [(ngModel)]="this.questionnaire.status">
+          <input type="text" disabled *ngIf="!this.questionnaire.status" placeholder="Status will be set based upon start and finish date.">
+        </div>
+        <label for="startDate">Opens at: </label>
+        <input type="date" id="startDate" [ngModel]="this.questionnaire.startDate | date:'yyyy-MM-dd'"
+               (ngModelChange)="questionnaire.startDate = $event">
+        <label for="endDate">Closes at: </label>
+        <input type="date" id="endDate" [ngModel]="this.questionnaire.finishDate | date:'yyyy-MM-dd'"
+               (ngModelChange)="this.questionnaire.finishDate = $event">
+      </div>
+
+      <!-- Option to select a pillar -->
+      <div class="education">
+        <div class="pillar row" [hidden]="!isNewQuestionnaire || pillarSelected">
+          <div class="row">
+            <button id="setPillarBtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#setPillar'">
+              Set pillar
+            </button>
+          </div>
+
+          <!-- Modal for setting a pillar -->
+          <div class="modal fade" id="setPillar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="pillarTitle">Set pillar for "{{this.questionnaire.name}}"</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <input [(ngModel)]="pillarName" id="pillarName" type="text" placeholder="Pillar name">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="button" id="addPillarBtn" class="btn btn-primary" (click)="onSelectPillar(pillarName)"
+                          data-bs-dismiss="modal">Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pillar row" *ngIf="pillarSelected">
+          <div class="row" id="pillarDiv" >
+            <h3>{{this.questionnaire.pillar.name}}</h3>
+          </div>
+          <div class="row">
+            <button type="button" id="addClusterBtn" class="btn btn-primary col-2" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#addCluster'" (click)="emptyFields()">
+              Add cluster
+            </button>
+          </div>
+
+        <!-- Modal for adding a cluster to the pillar -->
+        <div class="modal fade" id="addCluster" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="clusterTitle">Add a cluster to "{{this.questionnaire.pillar.name}}"</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <input [(ngModel)]="clusterName" id="clusterName" type="text" placeholder="Cluster name">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="onAddCluster" (click)="onAddCluster()"
+                        data-bs-dismiss="modal">Add
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div *ngIf="pillarSelected">
+          <!-- Clusters and option to edit them and add goals to them -->
+          <ng-container *ngFor="let cluster of this.questionnaire.pillar.clusters">
+
+            <div id="clusterRow" class="cluster row">
+              <div class="row">
+                <h4>{{cluster.name}}</h4>
+              </div>
+
+              <div class="row">
+                <button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#cluster'+cluster.id" (click)="emptyFields()">
+                  Add a goal
+                </button>
+                <button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#editCluster'+cluster.id" (click)="loadCluster(cluster.id)">
+                  Edit cluster
+                </button>
+                <button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
+                        [attr.data-bs-target]="'#removeCluster'+cluster.id" (click)="loadCluster(cluster.id)">
+                  Remove cluster
+                </button>
+              </div>
+
+              <!-- Modal for adding a goal to the cluster -->
+              <div class="modal fade" id="cluster{{cluster.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                   aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="addGoal">Add a goal to "{{cluster.name}}"</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <input [(ngModel)]="goalName" type="text" placeholder="Goal title">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" (click)="onAddGoal(cluster.id)"
+                              data-bs-dismiss="modal">Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal for editing a cluster -->
+            <div class="modal fade" id="editCluster{{cluster.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editCluster">Edit "{{cluster.name}}"</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <input [(ngModel)]="clusterName" type="text">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="onEditCluster(cluster.id)"
+                            data-bs-dismiss="modal">Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="removeCluster{{cluster.id}}" tabindex="-1"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Remove "{{cluster.name}}"</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you'd like to remove "{{cluster.name}}" and all of its goals and questions? This action
+                    can't be
+                    undone!
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="onRemoveCluster(cluster.id)"
+                            data-bs-dismiss="modal">Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Goals and option to edit them and add questions to them -->
+            <ng-container *ngFor="let goal of cluster.goals">
+              <div class="row">
+                <div class="goal">
+                  <div class="row">
+                    <h4>{{goal.name}}</h4>
+                  </div>
+                  <div class="row clusterCruds">
+                    <button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#goal'+goal.id" (click)="emptyFields()">
+                      Add a question
+                    </button>
+                    <button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#editGoal'+goal.id" (click)="loadGoal(cluster.id, goal.id)">
+                      Edit question
+                    </button>
+                    <button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#confirmRemovalOfGoal'+goal.id">
+                      Remove question
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal for adding a question -->
+              <div class="modal fade" id="goal{{goal.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                   aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add a question to "{{goal.name}}"</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <textarea [(ngModel)]="subquestionName" placeholder="Subquestion name"></textarea>
+                      </div>
+                      <div class="row">
+                        <textarea [(ngModel)]="subDesc1" placeholder="Description for 'does not apply' rating"></textarea>
+                        <textarea style="margin-top: 10px" [(ngModel)]="subDesc2" placeholder="Description for worst rating"></textarea>
+                      </div>
+                      <div class="row">
+                        <textarea [(ngModel)]="subDesc3" placeholder="Description for second rating"></textarea>
+                        <textarea style="margin-top: 10px" [(ngModel)]="subDesc4" placeholder="Description for third rating"></textarea>
+                      </div>
+                      <div class="row">
+                        <textarea [(ngModel)]="subDesc5" placeholder="Description for fourth rating"></textarea>
+                        <textarea style="margin-top: 10px" [(ngModel)]="subDesc6" placeholder="Description for best rating"></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary"
+                              (click)="onAddSubquestion(cluster, cluster.id, goal.id)"
+                              data-bs-dismiss="modal">Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal for editing a goal -->
+              <div class="modal fade" id="editGoal{{goal.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                   aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="goalTitle">Edit "{{goal.name}}"</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <textarea [(ngModel)]="goalName">{{goal.name}}</textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" (click)="onEditGoal(cluster.id, goal.id)"
+                              data-bs-dismiss="modal">Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal which asks user if he/she is sure to delete a goal and its questions -->
+              <div class="modal fade" id="confirmRemovalOfGoal{{goal.id}}" tabindex="-1"
+                   aria-labelledby="exampleModalLabel"
+                   aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Remove {{goal.name}}"</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Are you sure you'd like to remove "{{goal.name}}" and all of its questions? This action can't be
+                      undone!
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" (click)="onRemoveGoal(cluster.id, goal.id)"
+                              data-bs-dismiss="modal">Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Questions and option to edit them -->
+              <div class="question row" *ngFor="let question of goal.subquestions">
+                <div class="row">
+                  <h6>{{question.name}}</h6>
+                </div>
+                <div class="row questionCruds">
+                  <div>
+                    <button type="button" class="btn btn-primary col-3" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#editQuestion'+question.id"
+                            (click)="loadSubquestion(cluster.id, goal.id, question.id)">
+                      Edit
+                    </button>
+                    <button type="button" class="btn btn-primary col-3"
+                            data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#removeQuestion'+question.id">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Modal for editing a question -->
+                <div class="modal fade" id="editQuestion{{question.id}}" tabindex="-1"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="editQuestionModalLabel">Edit question {{question.id}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <textarea [(ngModel)]="subquestionName" placeholder="Subquestion name"></textarea>
+                        </div>
+                        <div class="row">
+                          <textarea [(ngModel)]="subDesc1" placeholder="Description for 'does not apply' rating"></textarea>
+                          <textarea style="margin-top: 10px" [(ngModel)]="subDesc2" placeholder="Description for worst rating" ></textarea>
+                        </div>
+                        <div class="row">
+                          <textarea [(ngModel)]="subDesc3" placeholder="Description for second rating"></textarea>
+                          <textarea style="margin-top: 10px" [(ngModel)]="subDesc4" placeholder="Description for third rating"></textarea>
+                        </div>
+                        <div class="row">
+                          <textarea [(ngModel)]="subDesc5" placeholder="Description for fourth rating"></textarea>
+                          <textarea style="margin-top: 10px" [(ngModel)]="subDesc6" placeholder="Description for best rating"></textarea>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary"
+                                (click)="onEditSubquestion(cluster.id, goal.id, question.id)"
+                                data-bs-dismiss="modal">Save
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal for asking a user if he/she is sure to remove a question        -->
+                <div class="modal fade" id="removeQuestion{{question.id}}" tabindex="-1"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="confirmRemovalQLabel">Remove question</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure you'd like to remove "{{question.name}}". This action can't be undone!</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary"
+                                (click)="onRemoveSubquestion(cluster.id, goal.id, question.id)"
+                                data-bs-dismiss="modal">Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <div (click)="onSave()" class="save-btn">
+            <img src="/assets/images/floppy-disk-icon.png" alt="Save">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

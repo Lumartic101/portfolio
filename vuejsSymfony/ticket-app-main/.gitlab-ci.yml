@@ -1,0 +1,169 @@
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
+
+build-npm:
+  stage: build
+  tags:
+    - hva
+  image: node:lts
+  script:
+    - cd app-ticket
+    - echo "Cleaning artifacts or cached files"
+    - rm -rf node_modules/
+    - rm -rf dist/
+    - npm install
+    - npm run build
+
+build-composer:
+  stage: build
+  tags:
+    - hva
+  image: composer:lts
+  script:
+    - apk update
+    - apk add --no-cache libxslt-dev
+    - docker-php-ext-install xsl
+    - cd backend-ticket
+    - composer install
+  cache:
+    - key:
+        files:
+          - composer.lock
+      paths:
+        - vendor/
+
+PHPStan-job:
+  stage: test
+  tags:
+    - hva
+  image: composer:lts
+  script:
+    - apk update
+    - apk add --no-cache libxslt-dev
+    - docker-php-ext-install xsl
+    - cd backend-ticket
+    - composer require --dev phpstan/phpstan
+    - vendor/bin/phpstan analyse
+  needs:
+    - build-composer
+
+PHPUnit-job:
+  stage: test
+  tags:
+    - hva
+  image: composer:lts
+  script:
+    - apk update
+    - apk add --no-cache libxslt-dev
+    - docker-php-ext-install xsl
+    - cd backend-ticket
+    - composer require --dev "phpunit/phpunit:^9.6"
+    - vendor/bin/phpunit --testdox
+  needs:
+    - build-composer
+
+
+SNYK-security-backend-test:
+  stage: test
+  tags:
+    - hva
+  image: node:lts
+  script:
+    - cd app-ticket
+    - npm install -g snyk
+    - snyk auth ${SNYK_TOKEN}
+    - snyk test
+  needs:
+    - build-composer
+
+Vue-testing-job:
+  stage: test
+  tags:
+    - hva
+  image: node:lts
+  script:
+    - cd app-ticket
+    - npm install
+    - npm run test:unit
+  needs:
+    - build-npm
+
+Vue-building-job:
+  stage: test
+  tags:
+    - hva
+  image: node:lts
+  script:
+    - cd app-ticket
+    - npm install
+    - npm run build
+  needs:
+    - build-npm
+
+SNYK-security-Vue-test:
+  stage: test
+  tags:
+    - hva
+  image: node:lts
+  script:
+    - cd app-ticket
+    - npm install -g snyk
+    - snyk auth ${SNYK_TOKEN}
+    - snyk test
+  needs:
+    - build-npm
+
+Vue-STAN-job:
+  stage: test
+  tags:
+    - hva
+  image: node:lts
+  script:
+    - cd app-ticket
+    - npm install eslint --save-dev
+    - npm install eslint-plugin-vue --save-dev
+    - npx eslint "src/**/*.{js,vue}"
+  needs:
+    - build-npm
+
+deploy_fe:
+  stage: deploy
+  image: node:latest
+  tags:
+    - hva
+  only:
+    refs:
+      - main
+  script:
+    - apt-get update && apt-get install -y curl
+    - curl -fsSL https://railway.app/install.sh | sh
+    - export RAILWAY_TOKEN=${RAILWAY_FE_TOKEN}
+    - cd app-ticket
+    - railway up --service=awesome-fe-project -d
+  dependencies:
+    - Vue-testing-job
+    - PHPStan-job
+    - PHPUnit-job
+    - Vue-STAN-job
+
+deploy_be:
+  stage: deploy
+  image: node:latest
+  tags:
+    - hva
+  only:
+    refs:
+      - main
+  script:
+    - apt-get update && apt-get install -y curl
+    - curl -fsSL https://railway.app/install.sh | sh
+    - export RAILWAY_TOKEN=${RAILWAY_BE_TOKEN}
+    - cd backend-ticket
+    - railway up --service=awesome-be-project -d
+  dependencies:
+    - Vue-testing-job
+    - PHPStan-job
+    - PHPUnit-job
+    - Vue-STAN-job

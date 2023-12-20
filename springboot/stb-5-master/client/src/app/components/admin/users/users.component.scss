@@ -1,0 +1,17 @@
+
+
+.table-responsive {
+  max-height: 600px;
+}
+
+@media (max-width: 992px) {
+  .top-button {
+    margin-bottom: 10px;
+  }
+}
+.overflow-scroll {
+  overflow: unset !important;
+}
+.table-responsive {
+  overflow-x: unset !important;
+}

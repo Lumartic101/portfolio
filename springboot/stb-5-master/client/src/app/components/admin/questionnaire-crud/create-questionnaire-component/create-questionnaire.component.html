@@ -1,0 +1,48 @@
+<!-- TODO -->
+<!-- Write a function which adds a new questionnaire to the database -->
+<div class="container-fluid">
+
+  <h2 id="title">{{this.name}}</h2>
+
+  <div class="name-div">
+    <h3>Pick a name for this questionnaire</h3>
+    <div class="form-check name">
+      <input type="text" id="questionnaireName" [(ngModel)]="this.name" placeholder="Questionnaire name">
+    </div>
+  </div>
+
+  <div class="pillar-div">
+    <div class="row">
+      <div class="col">
+        <h3>Select a pillar</h3>
+        <select #selectElement (change)="setSelectedPillar(+selectElement.value)" class="form-select" multiple aria-label="multiple select example">
+          <option *ngFor="let p of pillars" [value]="p.id">
+            {{p.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="date-div">
+    <h3>Pick a start and end date</h3>
+    <div class="form-check-inline">
+      <label class="datepicker" for="start">Starting at: </label>
+      <input type="date" id="start" [(ngModel)]="startDate">
+    </div>
+    <div class="form-check-inline">
+      <label class="datepicker" for="end">Ending at: </label>
+      <input type="date" id="end" [(ngModel)]="endDate">
+    </div>
+  </div>
+
+  <div>
+    <button type="button" (click)="onProceed()" class="btn btn-success btn-lg m-3" id="proceedBtn">
+      Proceed
+    </button>
+  </div>
+</div>
+
+
+
+

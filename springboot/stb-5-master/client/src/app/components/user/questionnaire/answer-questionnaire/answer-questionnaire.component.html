@@ -1,0 +1,14 @@
+<div class="questionnaire-background">
+  <div class="questionnaire-header">
+        closes: {{questionnaire.finishDate.toDateString()}}
+    <h1>{{questionnaire.name}}</h1>
+        {{questionnaire.pillar.name}}
+  </div>
+  <div *ngFor="let cluster; index as clusterIndex of questionnaire.pillar.clusters">
+    <app-questionnaire-cluster [cluster]="cluster" [clusterIndex]="clusterIndex + 1"></app-questionnaire-cluster>
+    <br>
+  </div>
+  <div class="row">
+    <button [disabled]="submissionOngoing" class="btn btn-primary submit-button w-50 mb-3 bg-primary p-3" (click)="onSubmit()">submit</button>
+  </div>
+</div>

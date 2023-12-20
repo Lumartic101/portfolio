@@ -1,0 +1,32 @@
+.container-fluid {
+  max-width: 80%;
+}
+
+.datepicker {
+  padding-right: 2%;
+}
+
+.name {
+  margin-left: -2%;
+}
+
+.date-div, .pillar-div {
+  margin-top: 2%;
+}
+
+#addPillBtn {
+  margin-left: 1%;
+  margin-top: -1vh;
+}
+
+#proceedBtn {
+  margin-left: 0 !important;
+}
+
+input[type=text], input[type=date] {
+  height: 35px;
+}
+
+#title {
+  color: #25167A;
+}

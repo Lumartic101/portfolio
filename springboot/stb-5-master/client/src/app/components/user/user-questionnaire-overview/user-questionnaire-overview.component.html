@@ -1,0 +1,32 @@
+<section id="welcome-logged-in">
+  <div class="container py-4">
+    <div class="p-5 mb-4 rounded-3">
+      <div class="container-fluid py-5">
+        <div class="row justify-content-center">
+          <div class="bg-primary list-group-background">
+            <ul class="list-group list-group-questionnaires-user mt-2">
+              <li *ngIf="questionnaires.length == 0" class="list-group-item list-group-item-action flex-column project">
+                <div class="row">
+                  <div class="d-flex justify-content-between">
+                    <h5>no questionnaires available</h5>
+                  </div>
+                </div>
+              </li>
+              <li *ngFor="let questionnaire of questionnaires" class="list-group-item list-group-item-action flex-column project">
+                <div class="row">
+                  <div class="d-flex justify-content-between">
+                    <h5 class="mb-1 fw-bold">{{questionnaire.name}}</h5>
+                    <p class="mb-3 fw-bold" >Due date: <br> {{questionnaire.finishDate.toDateString()}}</p>
+                  </div>
+                </div>
+                <button routerLink="answer/{{questionnaire.id}}"
+                        class="btn bg-primary text-white float-end" type="button">Start
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

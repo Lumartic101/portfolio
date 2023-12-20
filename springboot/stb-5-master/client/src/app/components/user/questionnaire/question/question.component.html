@@ -1,0 +1,11 @@
+<div class="question-background">
+  <h3>{{clusterIndex}}.{{goalIndex + questionLetter}}  {{question.name}}</h3>
+  {{question.description}}<br>
+  <table>
+    <tr>
+      <th *ngFor="let header of question.progresses">{{header.title}}</th>
+    <tr>
+    <th class="description-cell" (click)="question.rating = i; answered = true" *ngFor="let progress of question.progresses; let i = index" [ngClass]="{'selected-cell': question.rating == i}">{{progress.description}}</th>
+    </tr>
+  </table>
+</div>

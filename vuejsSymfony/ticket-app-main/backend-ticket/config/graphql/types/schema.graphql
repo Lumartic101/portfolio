@@ -1,0 +1,33 @@
+type Query {
+  users(email: String): [User!]!
+  user(id: ID!): User
+  tickets(id: ID!): [Ticket!]!
+  ticket(id: ID!): Ticket
+  events: [Event!]!
+  event(id: ID!): Event
+}
+
+type User {
+  id: ID!
+  email: String!
+  tickets: [Ticket!]!
+  roles: [String!]!
+}
+
+type Ticket {
+  id: ID!
+  holderName: String!
+  type: String!
+  orderId: String!
+  price: Float!
+  event: Event!
+}
+
+type Event {
+  id: ID!
+  eventName: String!
+  country: String!
+  location: String!
+  startDate: String!
+  endDate: String!
+}

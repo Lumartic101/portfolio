@@ -1,0 +1,5 @@
+framework:
+    mailer:
+        dsn: 'sendgrid+api://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@default'
+        envelope:
+            sender: 'testingappticket@gmail.com'
